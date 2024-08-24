@@ -11,7 +11,7 @@ class GetAllCategories @Inject constructor(val firebaseDatabase: FirebaseDatabas
     fun getAllCategory(){
         val categoryListener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val category = snapshot.getValue<CategoryDTO>()
+
             }
             override fun onCancelled(error: DatabaseError) {}
         }

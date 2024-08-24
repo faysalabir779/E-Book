@@ -1,5 +1,7 @@
 package com.example.e_book.di
 
+import com.example.e_book.data_layer.network.repo.AllBookRepoImpl
+import com.example.e_book.domain_layer.repo.AllBookRepo
 import com.google.firebase.Firebase
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -25,6 +27,12 @@ object HiltModule {
     @Singleton
     fun provideFirebaseStorage(): FirebaseStorage {
         return FirebaseStorage.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRepo(firebaseDatabase: FirebaseDatabase): AllBookRepo{
+        return AllBookRepoImpl(firebaseDatabase)
     }
 
 }

@@ -73,10 +73,18 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
 
+    //hilt
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
 
     kapt("androidx.hilt:hilt-compiler:1.2.0")
 
+    //hilt view model
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+    //icons
     implementation("androidx.compose.material:material-icons-extended:1.6.8")
+
+    //pdf viewer
+    implementation ("io.github.grizzi91:bouquet:1.1.2")
 }
