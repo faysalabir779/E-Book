@@ -1,5 +1,6 @@
 package com.example.e_book.presentation_layer
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -38,9 +39,6 @@ fun BooksByCategory(
         viewModel.loadBooksByCategory(category)
     }
 
-    val pdfLink = remember {
-        mutableStateOf("")
-    }
     val res = viewModel.state.value
 
     if (res.isLoading) {

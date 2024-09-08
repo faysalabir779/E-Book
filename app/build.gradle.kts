@@ -90,6 +90,9 @@ dependencies {
     //pdf viewer
     implementation ("io.github.grizzi91:bouquet:1.1.2")
 
+    //coil
+    implementation("io.coil-kt:coil-compose:2.6.0")
+
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 }

@@ -1,5 +1,6 @@
 package com.example.e_book.presentation_layer
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -38,7 +39,7 @@ fun CategoryScreen(viewModel: ViewModel = hiltViewModel(), navController: NavHos
                 items(res.category) {
                     Card(modifier = Modifier
                         .fillMaxWidth()
-                        .clickable {navController.navigate(Navigation.BookByCategory(it.Name))}) {
+                        .clickable {navController.navigate(Navigation.BookByCategory(it.Name)) }) {
                         Row {
                             Text(text = it.Name)
                         }
