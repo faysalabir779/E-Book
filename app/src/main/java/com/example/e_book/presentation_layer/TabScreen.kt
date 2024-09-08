@@ -2,8 +2,10 @@ package com.example.e_book.presentation_layer
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
@@ -20,16 +22,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 
 @Preview(showBackground = true, showSystemUi = true)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TabScreen() {
+fun TabScreen(navController: NavHostController) {
     var pagerState = rememberPagerState(pageCount = { 2 })
     Column {
         Tabs(pagerState = pagerState)
-        TabsContent(pagerState = pagerState)
+        TabsContent(pagerState = pagerState, navController)
     }
 
 
@@ -40,8 +43,8 @@ fun TabScreen() {
 @Composable
 fun Tabs(pagerState: PagerState) {
     val tabNames = arrayOf(
-        tabItem("Category", Icons.Filled.Category),
-        tabItem("All Books", Icons.Filled.Book)
+        tabItem("All Books", Icons.Filled.Book),
+        tabItem("Category", Icons.Filled.Category)
     )
     val coroutine = rememberCoroutineScope()
 
@@ -55,10 +58,13 @@ fun Tabs(pagerState: PagerState) {
                     }
                 },
                 ){
-                Spacer(modifier = Modifier.height(10.dp))
-                Icon(imageVector = title.icon, contentDescription = null)
-                Text(text = title.name)
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(6.dp))
+                Row {
+                    Icon(imageVector = title.icon, contentDescription = null)
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(text = title.name)
+                }
+                Spacer(modifier = Modifier.height(6.dp))
             }
         }
     }
@@ -67,11 +73,11 @@ fun Tabs(pagerState: PagerState) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TabsContent(pagerState: PagerState) {
+fun TabsContent(pagerState: PagerState, navController: NavHostController) {
     HorizontalPager(state = pagerState) {
         when(it){
-            0 -> CategoryScreen()
-            1 -> AllBooksScreen()
+            0 -> AllBooksScreen(navController = navController)
+            1 -> CategoryScreen(navController = navController)
         }
     }
 
