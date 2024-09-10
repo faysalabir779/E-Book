@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ViewModel @Inject constructor(val repo: AllBookRepo) : ViewModel() {
+open class ViewModel @Inject constructor(val repo: AllBookRepo) : ViewModel() {
     private val _state:MutableState<ItemsState> = mutableStateOf(ItemsState())
     val state: MutableState<ItemsState> = _state
 

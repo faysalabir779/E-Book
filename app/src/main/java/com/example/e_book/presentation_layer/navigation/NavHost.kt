@@ -14,7 +14,7 @@ import com.example.e_book.presentation_layer.TabScreen
 fun NavGraphController(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Navigation.HomeScreen){
+    NavHost(navController = navController, startDestination = Navigation.HomeScreen) {
         composable<Navigation.HomeScreen> {
             TabScreen(navController)
         }
@@ -24,7 +24,14 @@ fun NavGraphController(modifier: Modifier = Modifier) {
         }
         composable<Navigation.ShowPdfScreen> {
             val pdf = it.toRoute<Navigation.ShowPdfScreen>()
-            ShowPdfScreen(url = pdf.url)
+            ShowPdfScreen(
+                url = pdf.bookurl,
+                pdf.bookPage,
+                pdf.bookImage,
+                pdf.bookAuthor,
+                pdf.bookName,
+                navController = navController
+            )
         }
     }
 }

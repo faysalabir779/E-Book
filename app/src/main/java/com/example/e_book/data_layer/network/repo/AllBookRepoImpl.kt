@@ -57,9 +57,9 @@ class AllBookRepoImpl @Inject constructor(val firebaseDatabase: FirebaseDatabase
                 trySend(ResultState.Error(error.toException()))
             }
         }
-        firebaseDatabase.reference.child("BookCategory").addValueEventListener(valueEvent)
+        firebaseDatabase.reference.child("BooksCategory").addValueEventListener(valueEvent)
         awaitClose{
-            firebaseDatabase.reference.child("BookCategory").removeEventListener(valueEvent)
+            firebaseDatabase.reference.child("BooksCategory").removeEventListener(valueEvent)
             close()
     }
     }

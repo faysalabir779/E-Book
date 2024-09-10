@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.example.e_book.presentation_layer.component.BookCard
 import com.example.e_book.presentation_layer.navigation.Navigation
 import com.rizzi.bouquet.ResourceType
 import com.rizzi.bouquet.VerticalPDFReader
@@ -57,15 +58,14 @@ fun BooksByCategory(
         Box(modifier = Modifier.fillMaxSize()) {
             LazyColumn {
                 items(res.books) {
-                    Card(modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { navController.navigate(Navigation.ShowPdfScreen(it.bookUrl)) }) {
-                        Row {
-                            Text(text = it.bookName)
-                            Text(text = it.bookUrl)
-                        }
-                    }
-                    Spacer(modifier = Modifier.height(10.dp))
+                    BookCard(
+                        navController = navController,
+                        bookImage = it.bookImage,
+                        bookName = it.bookName,
+                        bookAuthor = it.bookAuthor,
+                        bookDescription = it.bookDescription,
+                        bookUrl = it.bookUrl
+                    )
                 }
             }
 

@@ -10,5 +10,6 @@ data class BookModel (
 )
 
 data class BookCategoryModel(
-    val Name: String = ""
+    val name: String = "",
+    val categoryImageUrl: String = ""
 )

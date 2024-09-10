@@ -10,5 +10,11 @@ sealed class Navigation {
     data class BookByCategory(val category: String)
 
     @Serializable
-    data class ShowPdfScreen(val url: String)
+    data class ShowPdfScreen(
+        val bookName: String,
+        val bookAuthor: String,
+        val bookImage: String,
+        val bookPage: Int = 0,
+        val bookurl: String
+    )
 }
