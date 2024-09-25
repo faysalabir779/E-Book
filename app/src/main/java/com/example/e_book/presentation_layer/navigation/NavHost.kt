@@ -6,9 +6,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.example.e_book.presentation_layer.BookmarksScreen
 import com.example.e_book.presentation_layer.BooksByCategory
+import com.example.e_book.presentation_layer.MainUi
 import com.example.e_book.presentation_layer.ShowPdfScreen
-import com.example.e_book.presentation_layer.TabScreen
 
 @Composable
 fun NavGraphController(modifier: Modifier = Modifier) {
@@ -16,11 +17,15 @@ fun NavGraphController(modifier: Modifier = Modifier) {
 
     NavHost(navController = navController, startDestination = Navigation.HomeScreen) {
         composable<Navigation.HomeScreen> {
-            TabScreen(navController)
+            MainUi(navController)
         }
         composable<Navigation.BookByCategory> {
             val category = it.toRoute<Navigation.BookByCategory>()
             BooksByCategory(category = category.category, navController = navController)
+        }
+
+        composable<Navigation.BookMarkScreen> {
+            BookmarksScreen(navController = navController)
         }
         composable<Navigation.ShowPdfScreen> {
             val pdf = it.toRoute<Navigation.ShowPdfScreen>()

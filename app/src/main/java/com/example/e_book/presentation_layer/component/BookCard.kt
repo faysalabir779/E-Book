@@ -13,9 +13,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,6 +27,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.SubcomposeAsyncImage
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.e_book.R
 import com.example.e_book.presentation_layer.navigation.Navigation
 
 @Composable
@@ -38,12 +42,22 @@ fun BookCard(
     bookDescription: String,
     bookUrl: String
 ) {
+    val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(resId = R.raw.loading))
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Card(
             modifier = Modifier
                 .height(120.dp)
                 .fillMaxWidth(0.94f)
-                .clickable { navController.navigate(Navigation.ShowPdfScreen(bookName, bookAuthor, bookImage, bookurl = bookUrl)) },
+                .clickable {
+                    navController.navigate(
+                        Navigation.ShowPdfScreen(
+                            bookName,
+                            bookAuthor,
+                            bookImage,
+                            bookurl = bookUrl
+                        )
+                    )
+                },
         ) {
             Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
                 Row(modifier = Modifier.padding(10.dp)) {
@@ -59,11 +73,14 @@ fun BookCard(
                             Text(text = "Error")
                         },
                         loading = {
-                            CircularProgressIndicator()
+                            LottieAnimation(composition =composition)
                         }
                     )
                     Spacer(modifier = Modifier.width(10.dp))
-                    Column (modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center){
+                    Column(
+                        modifier = Modifier.fillMaxHeight(),
+                        verticalArrangement = Arrangement.Center
+                    ) {
                         Text(text = bookName, fontSize = 15.sp, fontWeight = FontWeight.Bold)
                         Text(
                             text = bookDescription,
@@ -72,7 +89,12 @@ fun BookCard(
                             maxLines = 4,
                             overflow = TextOverflow.Ellipsis
                         )
-                        Text(text = bookAuthor, fontSize = 13.sp, fontStyle = FontStyle.Italic, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = bookAuthor,
+                            fontSize = 13.sp,
+                            fontStyle = FontStyle.Italic,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                 }
             }

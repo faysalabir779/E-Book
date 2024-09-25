@@ -10,6 +10,9 @@ sealed class Navigation {
     data class BookByCategory(val category: String)
 
     @Serializable
+    object BookMarkScreen
+
+    @Serializable
     data class ShowPdfScreen(
         val bookName: String,
         val bookAuthor: String,

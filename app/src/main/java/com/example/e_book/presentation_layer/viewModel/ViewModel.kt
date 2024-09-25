@@ -1,4 +1,4 @@
-package com.example.e_book.presentation_layer
+package com.example.e_book.presentation_layer.viewModel
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -9,8 +9,6 @@ import com.example.e_book.common.BookModel
 import com.example.e_book.common.ResultState
 import com.example.e_book.domain_layer.repo.AllBookRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
