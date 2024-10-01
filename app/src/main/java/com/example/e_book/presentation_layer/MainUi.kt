@@ -11,23 +11,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Chat
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.rounded.Bookmarks
 import androidx.compose.material.icons.rounded.BugReport
+import androidx.compose.material.icons.rounded.Code
 import androidx.compose.material.icons.rounded.Menu
-import androidx.compose.material.icons.rounded.NoteAdd
 import androidx.compose.material.icons.rounded.Share
-import androidx.compose.material.icons.rounded.Shop
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalDrawerSheet
@@ -40,16 +35,19 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.e_book.R
 import com.example.e_book.presentation_layer.navigation.Navigation
 import kotlinx.coroutines.Dispatchers
@@ -64,7 +62,6 @@ fun MainUi(navController: NavHostController) {
     val scope = rememberCoroutineScope()
     val urlHandler = LocalUriHandler.current
     val context = LocalContext.current
-
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -152,14 +149,16 @@ fun MainUi(navController: NavHostController) {
                             selected = false,
                             icon = {
                                 Icon(
-                                    Icons.Rounded.Shop,
+                                    Icons.Rounded.Code,
                                     contentDescription = "Source Code",
                                     modifier = Modifier.size(24.dp)
                                 )
                             },
-                            onClick = { scope.launch(Dispatchers.IO) {
-                                drawerState.close()
-                            } }
+                            onClick = {
+                                scope.launch(Dispatchers.IO) {
+                                    drawerState.close()
+                                }
+                            }
                         )
                         NavigationDrawerItem(
                             label = { Text("Bug Report") },
@@ -171,9 +170,11 @@ fun MainUi(navController: NavHostController) {
                                     modifier = Modifier.size(24.dp)
                                 )
                             },
-                            onClick = { scope.launch(Dispatchers.IO) {
-                                drawerState.close()
-                            } }
+                            onClick = {
+                                scope.launch(Dispatchers.IO) {
+                                    drawerState.close()
+                                }
+                            }
                         )
                     }
 
@@ -188,9 +189,11 @@ fun MainUi(navController: NavHostController) {
                                     modifier = Modifier.size(24.dp)
                                 )
                             },
-                            onClick = { scope.launch(Dispatchers.IO) {
-                                drawerState.close()
-                            } })
+                            onClick = {
+                                scope.launch(Dispatchers.IO) {
+                                    drawerState.close()
+                                }
+                            })
                     }
                 }
             }

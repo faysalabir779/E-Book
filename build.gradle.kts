@@ -7,3 +7,9 @@ plugins {
     alias(libs.plugins.google.gms.google.services) apply false
     alias(libs.plugins.jetbrains.kotlin.serialization) apply false
 }
+
+allprojects{
+    repositories{
+        maven{url = uri("https://oss.sonatype.org/content/repositories/snapshots")}
+    }
+}

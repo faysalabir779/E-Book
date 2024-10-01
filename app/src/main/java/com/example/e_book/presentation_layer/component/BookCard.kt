@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -29,6 +30,7 @@ import androidx.navigation.NavHostController
 import coil.compose.SubcomposeAsyncImage
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.e_book.R
 import com.example.e_book.presentation_layer.navigation.Navigation
@@ -42,7 +44,7 @@ fun BookCard(
     bookDescription: String,
     bookUrl: String
 ) {
-    val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(resId = R.raw.loading))
+    val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(resId = R.raw.anim))
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Card(
             modifier = Modifier
@@ -73,7 +75,11 @@ fun BookCard(
                             Text(text = "Error")
                         },
                         loading = {
-                            LottieAnimation(composition =composition)
+                            LottieAnimation(
+                                composition = composition,
+                                modifier = Modifier.size(80.dp),
+                                iterations = LottieConstants.IterateForever
+                            )
                         }
                     )
                     Spacer(modifier = Modifier.width(10.dp))

@@ -3,6 +3,7 @@ package com.example.e_book.presentation_layer
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
@@ -16,6 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.e_book.R
 import com.example.e_book.presentation_layer.component.BookCard
@@ -29,7 +31,9 @@ fun AllBooksScreen(
     navController: NavHostController
 ) {
 
-    val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(resId = R.raw.loading))
+    val composition by rememberLottieComposition(
+        spec = LottieCompositionSpec.RawRes(resId = R.raw.anim)
+    )
     LaunchedEffect(key1 = true) {
         viewModel.loadBooks()
     }
@@ -38,7 +42,11 @@ fun AllBooksScreen(
 
     if (res.isLoading) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            LottieAnimation(composition = composition)
+            LottieAnimation(
+                composition = composition,
+                modifier = Modifier.size(190.dp),
+                iterations = LottieConstants.IterateForever
+            )
         }
     }
     if (res.error.isNotEmpty()) {
