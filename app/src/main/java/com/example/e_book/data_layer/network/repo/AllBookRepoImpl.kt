@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.e_book.common.BookCategoryModel
 import com.example.e_book.common.BookModel
 import com.example.e_book.common.ResultState
+import com.example.e_book.common.SubCategory
 import com.example.e_book.domain_layer.repo.AllBookRepo
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -46,7 +47,7 @@ class AllBookRepoImpl @Inject constructor(val firebaseDatabase: FirebaseDatabase
         trySend(ResultState.Loading)
         val valueEvent = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var category : List<BookCategoryModel> = emptyList()
+                var category: List<BookCategoryModel> = emptyList()
                 category = snapshot.children.map {
                     it.getValue<BookCategoryModel>()!!
                 }
@@ -58,35 +59,77 @@ class AllBookRepoImpl @Inject constructor(val firebaseDatabase: FirebaseDatabase
             }
         }
         firebaseDatabase.reference.child("BooksCategory").addValueEventListener(valueEvent)
-        awaitClose{
+        awaitClose {
             firebaseDatabase.reference.child("BooksCategory").removeEventListener(valueEvent)
             close()
-    }
+        }
     }
 
-    override fun getAllBooksByCategory(Category: String): Flow<ResultState<List<BookModel>>> = callbackFlow {
-        trySend(ResultState.Loading)
+    override fun getAllBooksByCategory(Category: String): Flow<ResultState<List<BookModel>>> =
+        callbackFlow {
+            trySend(ResultState.Loading)
 
-        val valueEvent = object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var items: List<BookModel> = emptyList()
-                items = snapshot.children.filter {
-                    it.getValue<BookModel>()!!.category == Category
-                }.map { value ->
-                    value.getValue<BookModel>()!!
+            val valueEvent = object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var items: List<BookModel> = emptyList()
+                    items = snapshot.children.filter {
+                        it.getValue<BookModel>()!!.category == Category
+                    }.map { value ->
+                        value.getValue<BookModel>()!!
+                    }
+                    trySend(ResultState.Success(items))
                 }
-                trySend(ResultState.Success(items))
+
+                override fun onCancelled(error: DatabaseError) {
+                    trySend(ResultState.Error(error.toException()))
+                }
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                trySend(ResultState.Error(error.toException()))
+            firebaseDatabase.reference.child("Books").addValueEventListener(valueEvent)
+            awaitClose {
+                firebaseDatabase.reference.child("Books").removeEventListener(valueEvent)
+                close()
             }
         }
 
-        firebaseDatabase.reference.child("Books").addValueEventListener(valueEvent)
+    override fun getAllSubCategory(categoryName: String): Flow<ResultState<List<SubCategory>>> = callbackFlow {
+        trySend(ResultState.Loading)
+            val valueEvent = object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var subCategoryList: List<SubCategory> = emptyList()
+
+
+                    snapshot.children.forEach{ it ->
+                        val bookCategory = it.getValue(BookCategoryModel::class.java)
+
+                        if (bookCategory?.name == categoryName){
+                            val subCategoriesSnapshot = it.child("subCategory")
+
+                            subCategoryList = subCategoriesSnapshot.children.mapNotNull {
+                                it.getValue(SubCategory::class.java)
+                            }
+                        }
+                    }
+                    // Send the list of subcategories to the flow
+                    trySend(ResultState.Success(subCategoryList))
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    trySend(ResultState.Error(error.toException()))
+                }
+            }
+
+            // Query the category node
+        firebaseDatabase.reference.child("BooksCategory")
+            .addValueEventListener(valueEvent) // Use addValueEventListener
+
         awaitClose {
-            firebaseDatabase.reference.child("Books").removeEventListener(valueEvent)
+            firebaseDatabase.reference.child("BooksCategory")
+                .removeEventListener(valueEvent) // Remove the listener when the flow is closed
             close()
         }
-    }
+        }
+
 }
+
+

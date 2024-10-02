@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -66,7 +67,9 @@ fun BookmarkBookCard(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(modifier = Modifier.padding(10.dp)) {
+                    Row(modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .padding(10.dp)) {
                         SubcomposeAsyncImage(
                             model = bookImage,
                             contentScale = ContentScale.Crop,
@@ -87,7 +90,14 @@ fun BookmarkBookCard(
                             modifier = Modifier.fillMaxHeight(),
                             verticalArrangement = Arrangement.Center
                         ) {
-                            Text(text = bookName, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                            Text(
+                                text = bookName,
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Medium,
+                                maxLines = 2,
+                                lineHeight = 17.sp,
+                                overflow = TextOverflow.Ellipsis
+                            )
                             Text(
                                 text = bookPage.toString(),
                                 fontSize = 13.sp,

@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.e_book.data_layer.room.BookmarkModel
@@ -82,7 +83,7 @@ fun ShowPdfScreen(
     Scaffold(
         topBar = {
             TopAppBar(title = {
-                Text(text = bookName)
+                Text(text = bookName, maxLines = 2, fontSize = 19.sp, lineHeight = 22.sp)
             },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {

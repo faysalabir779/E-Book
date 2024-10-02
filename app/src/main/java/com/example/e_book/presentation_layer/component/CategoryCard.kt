@@ -38,7 +38,7 @@ fun CategoryCard(categoryImageUrl: String, name: String, navController: NavHostC
     )
     Card(modifier = Modifier
         .padding(8.dp)
-        .clickable { navController.navigate(Navigation.BookByCategory(name)) }) {
+        .clickable { navController.navigate(Navigation.SubCategoryScreen(categoryName = name)) }) {
         Column(
             modifier = Modifier
                 .size(200.dp)

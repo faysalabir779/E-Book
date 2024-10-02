@@ -87,7 +87,13 @@ fun BookCard(
                         modifier = Modifier.fillMaxHeight(),
                         verticalArrangement = Arrangement.Center
                     ) {
-                        Text(text = bookName, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = bookName,
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
                         Text(
                             text = bookDescription,
                             fontSize = 12.sp,

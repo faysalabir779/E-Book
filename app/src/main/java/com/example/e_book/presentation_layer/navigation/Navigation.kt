@@ -13,6 +13,9 @@ sealed class Navigation {
     object BookMarkScreen
 
     @Serializable
+    data class SubCategoryScreen(val categoryName: String)
+
+    @Serializable
     data class ShowPdfScreen(
         val bookName: String,
         val bookAuthor: String,

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.e_book.common.BookCategoryModel
 import com.example.e_book.common.BookModel
 import com.example.e_book.common.ResultState
+import com.example.e_book.common.SubCategory
 import com.example.e_book.domain_layer.repo.AllBookRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -52,11 +53,24 @@ open class ViewModel @Inject constructor(val repo: AllBookRepo) : ViewModel() {
         }
     }
 
+    fun loadSubCategory(categoryName: String){
+        viewModelScope.launch {
+            repo.getAllSubCategory(categoryName).collect{
+                when(it){
+                    is ResultState.Error -> _state.value = ItemsState(error = it.exception.localizedMessage)
+                    ResultState.Loading -> _state.value = ItemsState(isLoading = true)
+                    is ResultState.Success -> _state.value = ItemsState(subCategory = it.data)
+                }
+            }
+        }
+    }
+
 }
 
 data class ItemsState(
     val books: List<BookModel> = emptyList(),
     val category: List<BookCategoryModel> = emptyList(),
+    val subCategory: List<SubCategory> = emptyList(),
     val error: String = "",
     val isLoading: Boolean = false
 )
