@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.Flow
 interface AllBookRepo {
     fun getAllBooks() : Flow<ResultState<List<BookModel>>>
     fun getAllCategory() : Flow<ResultState<List<BookCategoryModel>>>
-    fun getAllBooksByCategory(category: String): Flow<ResultState<List<BookModel>>>
+    fun getAllBooksByCategory(category: String, subCategory: String): Flow<ResultState<List<BookModel>>>
     fun getAllSubCategory(categoryName: String): Flow<ResultState<List<SubCategory>>>
-//    fun getAllBooksBySubCategory(subCategory: String): Flow<ResultState<List<SubCategory>>>
+    //fun getAllBooksBySubCategory(subCategory: String): Flow<ResultState<List<SubCategory>>>
 
 }

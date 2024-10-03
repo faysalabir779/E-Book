@@ -22,7 +22,7 @@ fun NavGraphController(modifier: Modifier = Modifier) {
         }
         composable<Navigation.BookByCategory> {
             val category = it.toRoute<Navigation.BookByCategory>()
-            BooksByCategory(category = category.category, navController = navController)
+            BooksByCategory(category = category.category, navController = navController, subCategory = category.subCategory)
         }
 
         composable<Navigation.BookMarkScreen> {

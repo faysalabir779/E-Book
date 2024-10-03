@@ -41,9 +41,9 @@ open class ViewModel @Inject constructor(val repo: AllBookRepo) : ViewModel() {
         }
     }
 
-    fun loadBooksByCategory(category: String) {
+    fun loadBooksByCategory(category: String, subCategory: String) {
         viewModelScope.launch {
-            repo.getAllBooksByCategory(category).collect{
+            repo.getAllBooksByCategory(category, subCategory).collect{
                 when(it){
                     is ResultState.Error -> _state.value = ItemsState(error = it.exception.localizedMessage)
                     ResultState.Loading -> _state.value = ItemsState(isLoading = true)

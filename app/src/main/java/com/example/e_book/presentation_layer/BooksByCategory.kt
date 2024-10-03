@@ -31,11 +31,12 @@ import com.example.e_book.presentation_layer.viewModel.ViewModel
 @Composable
 fun BooksByCategory(
     category: String,
+    subCategory: String,
     viewModel: ViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
     LaunchedEffect(key1 = true) {
-        viewModel.loadBooksByCategory(category)
+        viewModel.loadBooksByCategory(category, subCategory)
     }
 
     val res = viewModel.state.value

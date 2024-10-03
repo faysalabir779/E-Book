@@ -65,17 +65,19 @@ class AllBookRepoImpl @Inject constructor(val firebaseDatabase: FirebaseDatabase
         }
     }
 
-    override fun getAllBooksByCategory(Category: String): Flow<ResultState<List<BookModel>>> =
+    override fun getAllBooksByCategory(Category: String, subCategory: String): Flow<ResultState<List<BookModel>>> =
         callbackFlow {
             trySend(ResultState.Loading)
 
             val valueEvent = object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    var items: List<BookModel> = emptyList()
-                    items = snapshot.children.filter {
-                        it.getValue<BookModel>()!!.category == Category
-                    }.map { value ->
-                        value.getValue<BookModel>()!!
+                    val items = snapshot.children.mapNotNull {
+                        val book = it.getValue<BookModel>()
+                        if (book?.category == Category && book.subCategory == subCategory) {
+                            book
+                        }else{
+                            null
+                        }
                     }
                     trySend(ResultState.Success(items))
                 }

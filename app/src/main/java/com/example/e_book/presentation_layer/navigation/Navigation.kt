@@ -7,7 +7,7 @@ sealed class Navigation {
     object HomeScreen
 
     @Serializable
-    data class BookByCategory(val category: String)
+    data class BookByCategory(val category: String, val subCategory: String)
 
     @Serializable
     object BookMarkScreen

@@ -1,6 +1,7 @@
 package com.example.e_book.presentation_layer
 
 import android.util.Log
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -40,6 +41,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.e_book.R
+import com.example.e_book.presentation_layer.navigation.Navigation
 import com.example.e_book.presentation_layer.viewModel.ViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -96,15 +98,18 @@ fun SubCategoryScreen(
                         .fillMaxSize()
                         .padding(horizontal = 15.dp)){
                         items(subCategory.subCategory) {
-                            Box(
+                            Card(onClick = {
+                                navController.navigate(Navigation.BookByCategory(categoryName, subCategory = it.name))
+                            },
                                 modifier = Modifier
                                     .fillMaxSize()
                                     .height(50.dp),
-                                contentAlignment = Alignment.Center
                             ) {
-                                Row {
-                                    Text(text = it.name)
-                                    Icon(Icons.Filled.ArrowForward, contentDescription = null)
+                                Box(modifier = Modifier.fillMaxSize().padding(horizontal = 15.dp), contentAlignment = Alignment.CenterStart){
+                                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                                        Text(text = it.name)
+                                        Icon(Icons.Filled.ArrowForward, contentDescription = null)
+                                    }
                                 }
 
                             }
