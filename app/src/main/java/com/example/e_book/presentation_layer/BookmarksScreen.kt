@@ -39,7 +39,7 @@ fun BookmarksScreen(
             title = { Text(text = "My Bookmark") },
             navigationIcon = {
                 IconButton(onClick = { navController.popBackStack() }) {
-                    Icon(Icons.Rounded.ArrowBack, contentDescription = null, tint = Color.Black)
+                    Icon(Icons.Rounded.ArrowBack, contentDescription = null)
                 }
             },
         )

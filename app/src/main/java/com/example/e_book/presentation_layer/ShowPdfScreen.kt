@@ -1,5 +1,6 @@
 package com.example.e_book.presentation_layer
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -83,7 +85,7 @@ fun ShowPdfScreen(
     Scaffold(
         topBar = {
             TopAppBar(title = {
-                Text(text = bookName, maxLines = 2, fontSize = 19.sp, lineHeight = 22.sp)
+                Text(text = bookName, maxLines = 2, overflow = TextOverflow.Ellipsis, fontSize = 19.sp, lineHeight = 22.sp)
             },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -101,6 +103,7 @@ fun ShowPdfScreen(
                                 bookPage = pdfState.currentPage
                             )
                         )
+                        Toast.makeText(context, "Bookmarks Added", Toast.LENGTH_SHORT).show()
                     }) {
                         Icon(Icons.Rounded.Bookmark, contentDescription = null)
                     }

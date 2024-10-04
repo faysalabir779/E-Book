@@ -1,5 +1,6 @@
 package com.example.e_book.presentation_layer.component
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,10 +23,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -33,6 +36,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.SubcomposeAsyncImage
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
+import com.example.e_book.R
 import com.example.e_book.presentation_layer.navigation.Navigation
 
 @Composable
@@ -45,6 +53,8 @@ fun BookmarkBookCard(
     bookPage: Int,
     onDeleteClick: () -> Unit,
 ) {
+    val context = LocalContext.current
+    val composition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(resId = R.raw.anim))
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         Card(
             modifier = Modifier
@@ -82,24 +92,28 @@ fun BookmarkBookCard(
                                 Text(text = "Error")
                             },
                             loading = {
-                                CircularProgressIndicator()
+                                LottieAnimation(
+                                    composition = composition,
+                                    modifier = Modifier.size(80.dp),
+                                    iterations = LottieConstants.IterateForever
+                                )
                             }
                         )
                         Spacer(modifier = Modifier.width(10.dp))
                         Column(
                             modifier = Modifier.fillMaxHeight(),
-                            verticalArrangement = Arrangement.Center
+                            verticalArrangement = Arrangement.Top
                         ) {
                             Text(
                                 text = bookName,
-                                fontSize = 15.sp,
+                                fontSize = 17.sp,
                                 fontWeight = FontWeight.Medium,
                                 maxLines = 2,
                                 lineHeight = 17.sp,
                                 overflow = TextOverflow.Ellipsis
                             )
                             Text(
-                                text = bookPage.toString(),
+                                text = "Page No. - $bookPage",
                                 fontSize = 13.sp,
                                 fontStyle = FontStyle.Normal,
                                 fontWeight = FontWeight.Bold
@@ -108,7 +122,9 @@ fun BookmarkBookCard(
 
                     }
                     Box(modifier = Modifier, contentAlignment = Alignment.CenterEnd) {
-                        IconButton(onClick = onDeleteClick) {
+                        IconButton(onClick = { onDeleteClick()
+                            Toast.makeText(context, "Bookmarks Deleted", Toast.LENGTH_SHORT).show()}
+                        ) {
                             Icon(
                                 Icons.Rounded.DeleteForever,
                                 contentDescription = null,

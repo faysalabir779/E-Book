@@ -67,7 +67,7 @@ fun SubCategoryScreen(
             title = { Text(text = categoryName) },
             navigationIcon = {
                 IconButton(onClick = { navController.popBackStack() }) {
-                    Icon(Icons.Rounded.ArrowBack, contentDescription = null, tint = Color.Black)
+                    Icon(Icons.Rounded.ArrowBack, contentDescription = null)
                 }
             },
         )

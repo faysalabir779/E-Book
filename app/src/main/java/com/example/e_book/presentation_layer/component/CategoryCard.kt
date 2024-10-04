@@ -41,7 +41,7 @@ fun CategoryCard(categoryImageUrl: String, name: String, navController: NavHostC
         .clickable { navController.navigate(Navigation.SubCategoryScreen(categoryName = name)) }) {
         Column(
             modifier = Modifier
-                .size(200.dp)
+                .size(210.dp)
                 .padding(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
