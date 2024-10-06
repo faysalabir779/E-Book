@@ -85,7 +85,6 @@ fun BooksByCategory(
         if (res.error.isNotEmpty()) {
             Box(modifier = Modifier.fillMaxSize()) {
                 Text(text = res.error)
-
             }
         }
 

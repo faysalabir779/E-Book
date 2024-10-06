@@ -1,5 +1,6 @@
 package com.example.e_book.presentation_layer
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -154,11 +155,7 @@ fun MainUi(navController: NavHostController) {
                                     modifier = Modifier.size(24.dp)
                                 )
                             },
-                            onClick = {
-                                scope.launch(Dispatchers.IO) {
-                                    drawerState.close()
-                                }
-                            }
+                            onClick = { urlHandler.openUri("https://github.com/faysalabir779/E-Book") }
                         )
                         NavigationDrawerItem(
                             label = { Text("Bug Report") },
@@ -171,9 +168,7 @@ fun MainUi(navController: NavHostController) {
                                 )
                             },
                             onClick = {
-                                scope.launch(Dispatchers.IO) {
-                                    drawerState.close()
-                                }
+                                urlHandler.openUri("https://github.com/faysalabir779")
                             }
                         )
                     }
@@ -191,6 +186,14 @@ fun MainUi(navController: NavHostController) {
                             },
                             onClick = {
                                 scope.launch(Dispatchers.IO) {
+                                    val shareIntent = Intent().apply {
+                                        action = Intent.ACTION_SEND
+                                        type = "text/plain"
+                                        putExtra(Intent.EXTRA_TEXT, "Check Out This Amazing App: ")
+                                    }
+                                    val chooserIntent = Intent.createChooser(shareIntent, "Share App")
+                                    context.startActivity(chooserIntent)
+
                                     drawerState.close()
                                 }
                             })
